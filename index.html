@@ -5,55 +5,82 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Haozhe Zhao’s academic homepage: LLM, embodied AI, and robotics projects.">
   <title>Haozhe Zhao · Homepage</title>
+  <meta name="theme-color" content="#faf8f1">
+  <script>
+    (() => {
+      let saved;
+      try { saved = localStorage.getItem('homepage-theme'); } catch (_) {}
+      document.documentElement.dataset.theme = saved === 'light' || saved === 'dark' ? saved : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    })();
+  </script>
   <style>
-    :root { --bg:#f8f7f4; --paper:#fff; --ink:#17243b; --muted:#647084; --line:#dfe3e7; --blue:#255a92; --pale:#eaf1f7; --max:1120px; }
+    :root { color-scheme:light; --bg:#faf8f1; --paper:#fffefb; --ink:#28261f; --muted:#716d62; --line:#e5e0d4; --accent:#856325; --pale:#f0eadb; --header:#faf8f1ed; --max:960px; }
+    :root[data-theme="dark"] { color-scheme:dark; --bg:#10121b; --paper:#191c29; --ink:#edeef5; --muted:#a5a9bd; --line:#303446; --accent:#c5b8f3; --pale:#24273b; --header:#10121bed; }
     * { box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
-    body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.75 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif; }
-    a { color:var(--blue); text-decoration:none; }
+    html { scroll-behavior:smooth; scroll-padding-top:90px; }
+    body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.8 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif; }
+    body::before { content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:0; background:radial-gradient(ellipse at 85% 0%,#38305155,transparent 55%),radial-gradient(1px 1px at 15% 20%,#b3b8df88 90%,transparent),radial-gradient(1px 1px at 90% 35%,#b3b8df77 90%,transparent),radial-gradient(1px 1px at 7% 72%,#b3b8df88 90%,transparent),radial-gradient(1px 1px at 82% 80%,#b3b8df77 90%,transparent); }
+    [data-theme="dark"] body::before { opacity:1; }
+    a { color:var(--accent); text-decoration:none; text-underline-offset:4px; }
     a:hover { text-decoration:underline; }
-    button { font:inherit; }
-    .wrap { width:min(calc(100% - 40px),var(--max)); margin:auto; }
-    .topbar { position:sticky; top:0; z-index:10; background:rgba(248,247,244,.94); backdrop-filter:blur(12px); border-bottom:1px solid var(--line); }
-    .nav { min-height:66px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
-    .brand { color:var(--ink); font-weight:750; letter-spacing:.02em; white-space:nowrap; }
-    .navlinks { display:flex; align-items:center; gap:24px; flex-wrap:wrap; }
-    .navlinks a { color:#39485d; font-size:14px; }
-    .lang { border:1px solid var(--line); background:var(--paper); color:var(--ink); border-radius:20px; padding:3px 12px; cursor:pointer; font-size:13px; }
-    .hero { padding:84px 0 76px; display:grid; grid-template-columns:minmax(0,1fr) 250px; align-items:center; gap:70px; border-bottom:1px solid var(--line); }
-    .eyebrow { margin:0 0 14px; color:var(--blue); font-size:12px; font-weight:750; letter-spacing:.18em; text-transform:uppercase; }
-    h1,h2,h3,p { margin-top:0; }
-    h1 { margin-bottom:6px; font-size:clamp(42px,6vw,70px); line-height:1.15; letter-spacing:-.045em; }
-    .identity { font-size:19px; color:#43536a; margin-bottom:24px; }
-    .lead { max-width:720px; font-size:17px; line-height:1.9; color:#334258; }
-    .links { display:flex; flex-wrap:wrap; gap:10px 20px; margin-top:26px; font-size:14px; font-weight:600; }
-    .portrait { position:relative; width:250px; aspect-ratio:4/5; border-radius:16px; background:linear-gradient(145deg,#dbe7ef,#b6cbdc); display:grid; place-items:center; color:#57728b; border:1px solid #cbd7df; overflow:hidden; }
+    a:focus-visible,button:focus-visible { outline:2px solid var(--accent); outline-offset:5px; }
+    button { font:inherit; cursor:pointer; }
+    .wrap { width:min(calc(100% - 48px),var(--max)); margin:auto; }
+    .topbar { position:sticky; top:0; z-index:10; background:var(--header); backdrop-filter:blur(16px); border-bottom:1px solid var(--line); }
+    .nav { min-height:68px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+    .brand { color:var(--ink); font-size:15px; font-weight:700; white-space:nowrap; }
+    .navlinks { display:flex; align-items:center; gap:19px; }
+    .navlinks a { color:var(--muted); font-size:13px; }
+    .lang,.theme-toggle { border:1px solid var(--line); background:var(--paper); color:var(--ink); border-radius:7px; height:32px; min-width:36px; padding:2px 9px; font-size:12px; }
+    .theme-toggle { display:grid; place-items:center; padding:6px; }
+    .theme-toggle svg { width:17px; height:17px; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
+    .sun,[data-theme="dark"] .moon { display:none; }
+    [data-theme="dark"] .sun { display:block; }
+    .page-layout { display:grid; grid-template-columns:210px minmax(0,1fr); gap:58px; padding-top:54px; }
+    main { min-width:0; }
+    .profile { position:sticky; top:112px; align-self:start; }
+    .portrait { width:184px; aspect-ratio:4/5; position:relative; overflow:hidden; border-radius:10px; background:var(--pale); border:1px solid var(--line); display:grid; place-items:center; }
     .portrait img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-    .portrait span { text-align:center; font-size:13px; letter-spacing:.08em; }
-    section { padding:72px 0; border-bottom:1px solid var(--line); scroll-margin-top:75px; }
-    .sectionhead { display:flex; justify-content:space-between; align-items:end; gap:20px; margin-bottom:26px; }
-    h2 { margin-bottom:0; font-size:31px; letter-spacing:-.03em; line-height:1.25; }
-    .sectionnote { color:var(--muted); font-size:14px; }
-    .grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
-    .card { background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:27px 26px; min-height:190px; }
-    .card .num { display:block; margin-bottom:30px; color:#6d8daa; font-size:13px; font-weight:750; }
-    h3 { margin-bottom:10px; font-size:19px; line-height:1.4; }
-    .card p,.item p { color:var(--muted); font-size:14px; margin-bottom:0; }
-    .list { border-top:1px solid var(--line); }
-    .item { display:grid; grid-template-columns:120px minmax(0,1fr); gap:24px; padding:21px 0; border-bottom:1px solid var(--line); }
-    .date { color:var(--blue); font-size:13px; font-weight:750; letter-spacing:.04em; }
-    .item h3 { margin-bottom:5px; font-size:17px; }
-    .tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:13px; }
-    .tag { background:var(--pale); color:#365c7e; border-radius:5px; padding:3px 9px; font-size:12px; }
-    .project-link { display:inline-block; margin-top:12px; font-size:14px; font-weight:700; }
-    .portrait strong { font-size:64px; letter-spacing:-.08em; font-weight:650; color:#fff; text-shadow:0 2px 18px #5f829960; }
-    .contact { background:#e9f0f5; border-radius:18px; padding:36px 40px; display:flex; justify-content:space-between; gap:24px; align-items:center; }
-    .contact p { margin:8px 0 0; color:#4d5e70; }
-    .button { display:inline-block; background:var(--blue); color:white; border-radius:8px; padding:10px 22px; font-weight:650; white-space:nowrap; }
-    .button:hover { color:white; background:#194673; text-decoration:none; }
-    footer { padding:30px 0 40px; color:var(--muted); font-size:13px; }
-    @media (max-width:800px) { .hero { gap:30px; grid-template-columns:1fr 180px; } .portrait { width:180px; } .grid { grid-template-columns:1fr; } .card { min-height:0; } .card .num { margin-bottom:16px; } }
-    @media (max-width:620px) { .nav { align-items:flex-start; padding:14px 0; flex-direction:column; gap:8px; } .navlinks { gap:10px 16px; } .navlinks a { font-size:12px; } .hero { padding:48px 0; grid-template-columns:1fr; } .portrait { grid-row:1; width:150px; aspect-ratio:1; border-radius:50%; } section { padding:52px 0; } .item { grid-template-columns:1fr; gap:4px; } .contact { display:block; padding:28px; } .contact .button { margin-top:20px; } }
+    .portrait strong { color:var(--muted); font-size:50px; }
+    .profile-name { font-size:20px; font-weight:700; margin:19px 0 2px; }
+    .profile-subtitle { margin:0 0 18px; font-size:12px; color:var(--muted); }
+    .profile-meta { padding:16px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); font-size:13px; }
+    .profile-meta p { margin:0 0 5px; }
+    .profile-meta small { display:block; color:var(--muted); line-height:1.6; }
+    .profile-links { margin-top:18px; display:flex; flex-direction:column; align-items:flex-start; gap:5px; font-size:12px; overflow-wrap:anywhere; }
+    h1,h2,h3,p { margin-top:0; }
+    h1 { font-size:40px; line-height:1.2; letter-spacing:-.035em; margin-bottom:12px; font-weight:720; }
+    h2 { font-size:23px; line-height:1.35; letter-spacing:-.025em; margin:0; }
+    h3 { font-size:16px; line-height:1.5; margin:0 0 6px; font-weight:650; }
+    .hero { padding:0 0 34px; border-bottom:1px solid var(--line); }
+    .eyebrow { font-size:10px; letter-spacing:.14em; font-weight:650; color:var(--accent); margin:0 0 15px; }
+    .identity { color:var(--muted); font-size:13px; line-height:1.65; margin-bottom:26px; }
+    .lead { margin:0 0 15px; }
+    .links { display:flex; flex-wrap:wrap; gap:20px; font-size:12px; margin-top:21px; }
+    section { padding:31px 0; border-bottom:1px solid var(--line); }
+    .sectionhead { display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:21px; }
+    .sectionnote { font-size:9px; letter-spacing:.08em; color:var(--muted); white-space:nowrap; }
+    .grid { display:grid; gap:16px; }
+    .card { display:grid; grid-template-columns:108px 1fr; column-gap:14px; }
+    .card .num { grid-row:1 / 3; color:var(--muted); font-size:10px; letter-spacing:.03em; padding-top:3px; }
+    .card p,.item p { color:var(--muted); font-size:13px; margin:0; }
+    .card h3 { font-size:14px; margin-bottom:3px; }
+    .item { display:grid; grid-template-columns:108px minmax(0,1fr); gap:14px; padding:17px 0; border-bottom:1px solid var(--line); }
+    .item:first-child { padding-top:0; }
+    .item:last-child { border-bottom:0; padding-bottom:0; }
+    .date { color:var(--muted); font-size:12px; font-variant-numeric:tabular-nums; }
+    #work .item { display:block; padding:22px; margin-bottom:14px; border:1px solid var(--line); border-radius:9px; background:var(--paper); }
+    #work .date { display:block; font-size:10px; color:var(--accent); margin-bottom:7px; letter-spacing:.06em; }
+    .tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; }
+    .tag { background:var(--pale); color:var(--muted); border-radius:4px; padding:2px 7px; font-size:10px; }
+    .project-link { display:inline-block; margin-top:13px; font-size:12px; font-weight:600; }
+    .contact { display:flex; justify-content:space-between; align-items:center; gap:18px; }
+    .contact p { margin:9px 0 0; color:var(--muted); font-size:12px; overflow-wrap:anywhere; }
+    .button { display:inline-block; border:1px solid var(--line); background:var(--paper); color:var(--accent); padding:7px 13px; border-radius:6px; white-space:nowrap; font-size:12px; }
+    footer { padding:30px 0; font-size:11px; color:var(--muted); }
+    @media(max-width:800px) { .page-layout { grid-template-columns:170px minmax(0,1fr); gap:32px; } .portrait { width:160px; } .brand { font-size:13px; } .navlinks { gap:12px; } h1 { font-size:34px; } .card,.item { grid-template-columns:85px minmax(0,1fr); } }
+    @media(max-width:620px) { .wrap { width:calc(100% - 36px); } .nav { flex-wrap:wrap; padding:12px 0; gap:9px; } .navlinks { width:100%; justify-content:space-between; gap:8px; } .page-layout { display:block; padding-top:28px; } .profile { position:static; display:grid; grid-template-columns:100px 1fr; gap:20px; padding-bottom:27px; margin-bottom:30px; border-bottom:1px solid var(--line); } .portrait { width:100px; aspect-ratio:4/5; } .profile-name { margin:0 0 3px; font-size:19px; } .profile-subtitle { margin-bottom:8px; } .profile-meta { padding:0; border:0; font-size:11px; } .profile-links { margin-top:7px; gap:1px; font-size:11px; } h1 { font-size:35px; } .contact { display:block; } .contact .button { margin-top:16px; } .sectionnote { display:none; } .card,.item { grid-template-columns:76px minmax(0,1fr); } }
+    @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
   </style>
 </head>
 <body>
@@ -63,16 +90,30 @@
       <a class="brand" href="#top" data-zh="赵浩喆 · Haozhe Zhao" data-en="Haozhe Zhao · 赵浩喆">Haozhe Zhao · 赵浩喆</a>
       <div class="navlinks">
         <a href="#about" data-zh="关于" data-en="About">About</a>
-        <a href="#research" data-zh="研究方向" data-en="Research">Research</a>
-        <a href="#education" data-zh="经历" data-en="Education">Education</a>
         <a href="#work" data-zh="项目" data-en="Projects">Projects</a>
-        <a href="#contact" data-zh="联系" data-en="Contact">Contact</a>
+        <a href="#awards" data-zh="获奖" data-en="Awards">Awards</a>
+        <a href="#education" data-zh="经历" data-en="Education">Education</a>
+        <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Switch color theme" title="Switch color theme"><svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/></svg><svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg></button>
         <button class="lang" type="button" id="lang" aria-label="切换为中文">中文</button>
       </div>
     </nav>
   </header>
 
-  <main class="wrap" id="top">
+  <div class="wrap page-layout" id="top">
+    <aside class="profile" aria-label="Personal profile">
+      <div class="portrait"><strong>HZ</strong><img src="avatar.jpg" alt="Portrait of Haozhe Zhao" onload="this.previousElementSibling.hidden=true" onerror="this.remove()"></div>
+      <div class="profile-details">
+        <p class="profile-name" data-zh="赵浩喆" data-en="Haozhe Zhao">Haozhe Zhao</p>
+        <p class="profile-subtitle">LLM · Embodied AI · Robotics</p>
+        <div class="profile-meta">
+          <p data-zh="复旦大学 · 本科生" data-en="Fudan University · Undergraduate">Fudan University · Undergraduate</p>
+          <small data-zh="即将入学北京大学直博" data-en="Incoming PhD student at Peking University">Incoming PhD student at Peking University</small>
+        </div>
+        <div class="profile-links"><a href="mailto:zhaohaozhe86@gmail.com">zhaohaozhe86@gmail.com ↗</a><a href="https://github.com/zhaohaozhe949" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div>
+      </div>
+    </aside>
+    <main>
+
     <div class="hero" id="about">
       <div>
         <p class="eyebrow">LLM · EMBODIED AI · ROBOTICS</p>
@@ -81,12 +122,12 @@
         <p class="lead"><span data-zh="我目前是复旦大学大四学生，即将进入北京大学攻读博士学位，导师为" data-en="I am a final-year undergraduate at Fudan University and will pursue a direct-entry PhD at Peking University under ">I am a final-year undergraduate at Fudan University and will pursue a direct-entry PhD at Peking University under </span><a href="https://yangling0818.github.io/" target="_blank" rel="noopener noreferrer" data-zh="杨灵老师" data-en="Prof. Ling Yang">Prof. Ling Yang</a><span data-zh="。" data-en=".">.</span></p>
         <p class="lead" data-zh="我的研究兴趣是 LLM。此前，我独立开发了自然语言驱动的人形机器人动作生成与控制框架，也与合作者共同完成了基于 UWB 和 UKF 的多机器人定位项目。这些经历让我持续关注智能模型如何与真实物理系统交互。" data-en="My research interest is LLM. Previously, I independently developed a natural-language-driven humanoid motion generation and control framework and collaborated on a UWB- and UKF-based multi-robot localization project. These experiences have shaped my interest in how intelligent models interact with physical systems.">My research interest is LLM. Previously, I independently developed a natural-language-driven humanoid motion generation and control framework and collaborated on a UWB- and UKF-based multi-robot localization project. These experiences have shaped my interest in how intelligent models interact with physical systems.</p>
         <div class="links">
-          <a href="mailto:23300720001@m.fudan.edu.cn">Email ↗</a>
+          <a href="mailto:zhaohaozhe86@gmail.com">Email ↗</a>
           <a href="https://github.com/zhaohaozhe949" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
           <a href="#work" data-zh="查看项目 ↓" data-en="View projects ↓">View projects ↓</a>
         </div>
       </div>
-      <div class="portrait"><strong>HZ</strong><img src="avatar.jpg" alt="Portrait of Haozhe Zhao" onload="this.previousElementSibling.hidden=true" onerror="this.remove()"></div>
+
     </div>
 
     <section id="research">
@@ -98,26 +139,37 @@
       </div>
     </section>
 
-    <section id="education">
-      <div class="sectionhead"><h2 data-zh="学习经历" data-en="Education">Education</h2><span class="sectionnote">02 / EDUCATION</span></div>
-      <div class="list">
-        <article class="item"><span class="date" data-zh="即将入学" data-en="Incoming">Incoming</span><div><h3 data-zh="北京大学 · 直博" data-en="Peking University · Direct-entry PhD">Peking University · Direct-entry PhD</h3><p data-zh="导师：杨灵老师" data-en="Advisor: Prof. Ling Yang">Advisor: Prof. Ling Yang</p></div></article>
-        <article class="item"><span class="date" data-zh="目前" data-en="Current">Current</span><div><h3 data-zh="复旦大学 · 本科" data-en="Fudan University · Undergraduate">Fudan University · Undergraduate</h3><p data-zh="大四在读" data-en="Final-year student">Final-year student</p></div></article>
-      </div>
-    </section>
 
     <section id="work">
-      <div class="sectionhead"><h2 data-zh="精选项目" data-en="Selected projects">Selected projects</h2><span class="sectionnote">03 / PROJECTS</span></div>
+      <div class="sectionhead"><h2 data-zh="精选项目" data-en="Selected projects">Selected projects</h2><span class="sectionnote">02 / PROJECTS</span></div>
       <div class="list">
         <article class="item"><span class="date" data-zh="个人项目" data-en="Individual project">Individual project</span><div><h3>G1-MotionFlow</h3><p data-zh="自然语言驱动的人形机器人动作生成与控制框架。项目连接高层语义指令、动作生成与低层跟踪控制，面向宇树 G1 机器人。" data-en="A natural-language-driven humanoid motion generation and control framework connecting semantic instructions, motion generation, and low-level tracking for the Unitree G1.">A natural-language-driven humanoid motion generation and control framework connecting semantic instructions, motion generation, and low-level tracking for the Unitree G1.</p><div class="tags"><span class="tag">Humanoid Robotics</span><span class="tag">Motion Generation</span></div><a class="project-link" href="https://github.com/zhaohaozhe949/G1-MotionFlow" target="_blank" rel="noopener noreferrer" data-zh="查看代码与演示 ↗" data-en="Code & demo ↗">Code & demo ↗</a></div></article>
         <article class="item"><span class="date" data-zh="合作项目" data-en="Collaborative project">Collaborative project</span><div><h3>UWB-Enhanced Multi-Robot Localization</h3><p data-zh="与合作者共同开发的多机器人协同定位系统。融合机器人里程计与机器人间 UWB 测距，通过无迹卡尔曼滤波（UKF）改善相对定位。" data-en="A collaborative multi-robot localization system that fuses wheel odometry with inter-robot UWB ranging using an Unscented Kalman Filter (UKF).">A collaborative multi-robot localization system that fuses wheel odometry with inter-robot UWB ranging using an Unscented Kalman Filter (UKF).</p><div class="tags"><span class="tag">UWB</span><span class="tag">UKF</span><span class="tag">ROS 2</span></div><a class="project-link" href="https://github.com/crzzo0129/uwb-enhanced-multi-robot-locolization" target="_blank" rel="noopener noreferrer" data-zh="查看项目 ↗" data-en="View project ↗">View project ↗</a></div></article>
       </div>
     </section>
 
-    <section id="contact">
-      <div class="contact"><div><h2 data-zh="保持联系" data-en="Connect">Connect</h2><p data-zh="欢迎通过邮箱联系我：23300720001@m.fudan.edu.cn" data-en="Feel free to email me at 23300720001@m.fudan.edu.cn">Feel free to email me at 23300720001@m.fudan.edu.cn</p></div><a class="button" href="mailto:23300720001@m.fudan.edu.cn" data-zh="发送邮件 ↗" data-en="Send an email ↗">Send an email ↗</a></div>
+    <section id="awards">
+      <div class="sectionhead"><h2 data-zh="荣誉与奖励" data-en="Honors & Awards">Honors & Awards</h2><span class="sectionnote">03 / RECOGNITION</span></div>
+      <div class="list">
+        <article class="item"><time class="date" datetime="2026">2026</time><div><h3 data-zh="复旦大学优秀学生一等奖学金" data-en="Fudan University Outstanding Student Scholarship, First Class">Fudan University Outstanding Student Scholarship, First Class</h3></div></article>
+        <article class="item"><time class="date" datetime="2025">2025</time><div><h3 data-zh="复旦大学优秀学生一等奖学金" data-en="Fudan University Outstanding Student Scholarship, First Class">Fudan University Outstanding Student Scholarship, First Class</h3></div></article>
+        <article class="item"><time class="date" datetime="2024">2024</time><div><h3 data-zh="国家奖学金" data-en="National Scholarship">National Scholarship</h3></div></article>
+      </div>
     </section>
-  </main>
+
+    <section id="education">
+      <div class="sectionhead"><h2 data-zh="学习经历" data-en="Education">Education</h2><span class="sectionnote">04 / EDUCATION</span></div>
+      <div class="list">
+        <article class="item"><span class="date" data-zh="即将入学" data-en="Incoming">Incoming</span><div><h3 data-zh="北京大学 · 直博" data-en="Peking University · Direct-entry PhD">Peking University · Direct-entry PhD</h3><p data-zh="导师：杨灵老师" data-en="Advisor: Prof. Ling Yang">Advisor: Prof. Ling Yang</p></div></article>
+        <article class="item"><span class="date" data-zh="目前" data-en="Current">Current</span><div><h3 data-zh="复旦大学 · 本科" data-en="Fudan University · Undergraduate">Fudan University · Undergraduate</h3><p data-zh="大四在读" data-en="Final-year student">Final-year student</p></div></article>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="contact"><div><h2 data-zh="联系方式" data-en="Connect">Connect</h2><p data-zh="欢迎通过邮箱联系我：zhaohaozhe86@gmail.com" data-en="Feel free to email me at zhaohaozhe86@gmail.com">Feel free to email me at zhaohaozhe86@gmail.com</p></div><a class="button" href="mailto:zhaohaozhe86@gmail.com" data-zh="发送邮件 ↗" data-en="Send an email ↗">Send an email ↗</a></div>
+    </section>
+    </main>
+  </div>
   <footer class="wrap">© <span id="year">2026</span> <span data-zh="赵浩喆 · Haozhe Zhao" data-en="Haozhe Zhao · 赵浩喆">Haozhe Zhao · 赵浩喆</span></footer>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -131,6 +183,30 @@
       button.setAttribute('aria-label', language === 'zh' ? 'Switch to English' : '切换为中文');
       document.title = (language === 'zh' ? '赵浩喆 Haozhe Zhao · 个人主页' : 'Haozhe Zhao · Homepage');
     });
+
+    const themeButton = document.getElementById('theme-toggle');
+    const systemTheme = matchMedia('(prefers-color-scheme: dark)');
+    let themeOverride = false;
+    try { themeOverride = ['light', 'dark'].includes(localStorage.getItem('homepage-theme')); } catch (_) {}
+    function updateThemeUI() {
+      const dark = document.documentElement.dataset.theme === 'dark';
+      const label = language === 'zh' ? (dark ? '切换为浅色模式' : '切换为深色模式') : (dark ? 'Switch to light mode' : 'Switch to dark mode');
+      themeButton.setAttribute('aria-label', label);
+      themeButton.title = label;
+      document.querySelector('meta[name="theme-color"]').content = dark ? '#10121b' : '#faf8f1';
+    }
+    themeButton.addEventListener('click', () => {
+      const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = next;
+      themeOverride = true;
+      try { localStorage.setItem('homepage-theme', next); } catch (_) {}
+      updateThemeUI();
+    });
+    systemTheme.addEventListener('change', event => {
+      if (!themeOverride) { document.documentElement.dataset.theme = event.matches ? 'dark' : 'light'; updateThemeUI(); }
+    });
+    button.addEventListener('click', updateThemeUI);
+    updateThemeUI();
   </script>
 </body>
 </html>
